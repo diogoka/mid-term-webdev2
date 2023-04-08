@@ -1,7 +1,3 @@
-// let lat = 49.24;
-// let lon = -123.11;
-let lat = 0;
-let lon = 0;
 const key = '7986c02714e4efe92ca1c09ef5031f3f';
 let forecast = [];
 let currentPosition = [];
@@ -32,11 +28,8 @@ const renderWeather = async (lat, lon) => {
 
 
 const getBrowserLocation = (location) => {
-    console.log("Got current location");
-    console.log(Math.floor(location.coords.latitude));
-    console.log(Math.floor(location.coords.longitude));
-    lat = Math.floor(location.coords.latitude);
-    lon = Math.floor(location.coords.longitude);
+    lat = location.coords.latitude;
+    lon = location.coords.longitude;
     currentPosition.push(lat);
     currentPosition.push(lon);
     return currentPosition;
@@ -50,22 +43,18 @@ const getBrowserLocationError = (err) => {
 window.addEventListener('load', () => {
     console.log('Current Weather Loaded');
     navigator.geolocation.getCurrentPosition(getBrowserLocation, getBrowserLocationError);
+    loadPos();
 });
 
 
-const teste2 = () => {
-    return new Promise((resolve, reject) => {
+const loadPos = () => {
+    return new Promise((resolve) => {
         setTimeout(() => {
-            resolve(renderWeather(lat, lon));
+            resolve(
+                console.log(currentPosition[0], currentPosition[1]),
+                renderWeather(currentPosition[0], currentPosition[1])
+            );
         }, 5000);
     })
 }
 
-teste2();
-
-
-// renderWeather(lat, lon);
-
-module.exports = {
-    getWeather
-}
