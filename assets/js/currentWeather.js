@@ -51,9 +51,20 @@ const loadBrowserPosition = () => {
     return new Promise((resolve) => {
         resolve(
             console.log(currentPosition[0], currentPosition[1]),
+            // getWeather(currentPosition[0], currentPosition[1]),
             renderWeather(currentPosition[0], currentPosition[1])
         );
     })
 }
+
+
+// favoriteButton
+
+const favoriteButton = document.querySelector('#favoriteButton')
+
+favoriteButton.addEventListener('click', () => {
+    console.log('Favorite Button Clicked');
+    localStorage.setItem(forecast[0], currentPosition);
+})
 
 
