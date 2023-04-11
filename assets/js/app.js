@@ -11,5 +11,4 @@ function error(err) {
     window.alert(`Failed to get current location(${err.code}): ${err.message}`);
   }
 navigator.geolocation.getCurrentPosition(success, error);
-  
-  
+
