@@ -40,7 +40,19 @@ const weather=(lat,lon)=>{
         const date = dateTime.getDate();
         const hours = dateTime.getHours();
         const min = String(dateTime.getMinutes()).padStart(2, '0');
-        time=month+"/"+date+'&nbsp;'+hours+":"+min+'&nbsp;';
+        let convertTo12h="";
+
+        if(hours==12){
+          convertTo12h=hours+":"+min+"&nbsp;p.m."
+        }else if(hours==24){
+          convertTo12h=12+":"+min+"&nbsp;a.m."
+        }else if(hours<12){
+          convertTo12h=hours+":"+min+"&nbsp;a.m."
+        }else{
+          convertTo12h=hours-12+":"+min+"&nbsp;p.m."
+        }
+
+        time=month+"/"+date+'&nbsp;'+convertTo12h+'&nbsp;';
         li='<li>'+time+'<br/>'+data.list[i]["weather"][0]["main"]+'</li>';
         list.insertAdjacentHTML("beforeend",li)
       }
