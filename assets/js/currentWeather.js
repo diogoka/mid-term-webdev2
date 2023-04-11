@@ -32,29 +32,28 @@ const getBrowserLocation = (location) => {
     lon = location.coords.longitude;
     currentPosition.push(lat);
     currentPosition.push(lon);
-    return currentPosition;
+    loadBrowserPosition();
 }
 
 const getBrowserLocationError = (err) => {
-    window.alert(`Failed to get current location(${err.code}): ${err.message}`);
+    window.alert(`Failed to get current location (${err.code}): ${err.message}. Default location loaded: Vancouver`);
+    defaultLat = 49.28
+    defaultLon = -123.12
+    renderWeather(defaultLat, defaultLon);
 }
-
 
 window.addEventListener('load', () => {
     console.log('Current Weather Loaded');
-    navigator.geolocation.getCurrentPosition(getBrowserLocation, getBrowserLocationError);
-    loadPos();
+    navigator.geolocation.getCurrentPosition(getBrowserLocation, getBrowserLocationError)
 });
 
-
-const loadPos = () => {
+const loadBrowserPosition = () => {
     return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(
-                console.log(currentPosition[0], currentPosition[1]),
-                renderWeather(currentPosition[0], currentPosition[1])
-            );
-        }, 5000);
+        resolve(
+            console.log(currentPosition[0], currentPosition[1]),
+            renderWeather(currentPosition[0], currentPosition[1])
+        );
     })
 }
+
 
