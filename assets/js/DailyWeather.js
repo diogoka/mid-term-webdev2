@@ -33,32 +33,41 @@ function success(location) {
             data.list[0].main.temp_max,
             data.list[0].main.temp_min
             );
+            const obj ={
+            
+              
+            }
   
         const list=document.querySelector(".daily ul");
         let time='';
         let li='';
-        for(let i=0; i<=5; i++){
+        for(let i=0; i<data.list.length; i++){
           const dateTime=new Date(data.list[i].dt*1000);
           const month = dateTime.getMonth()+1;
           const date = dateTime.getDate();
-          const hours = dateTime.getHours();
-          const min = String(dateTime.getMinutes()).padStart(2, '0');
-          let convertTo12h="";
-  
-          if(hours==12){
-            convertTo12h=hours+":"+min+"&nbsp;p.m."
-          }else if(hours==24){
-            convertTo12h=12+":"+min+"&nbsp;a.m."
-          }else if(hours<12){
-            convertTo12h=hours+":"+min+"&nbsp;a.m."
-          }else{
-            convertTo12h=hours-12+":"+min+"&nbsp;p.m."
-          }
-  
-          time=month+"/"+date+'&nbsp;'+convertTo12h+'&nbsp;';
-          li='<li>'+time+'<br/>'+data.list[i]["main"]["temp_max"]+'<br/>'+data.list[i]["main"]["temp_min"]+'<br/>'+Math.max(data.list[i].main.max_temp)+'</li>';
-          list.insertAdjacentHTML("beforeend",li)
+          time=month+"/"+date;
+          if(!obj[time]){
+            obj[time] = [data.list[i]]
+          } else {
+            obj[time].push(data.list[i])
+          };
+        
+          console.log('time', time);
+          // li='<li>'+obj+'<br/>'+data.list[i]["main"]["temp_max"]+'<br/>'+data.list[i]["main"]["temp_min"]+'<br/>'+'</li>';
+          // list.insertAdjacentHTML("beforeend",li)
+          
           
         }
+        for (const j in obj) {
+          obj[j].forEach(element => {
+             console.log(Math.max(element.main.temp_max));
+             
+
+          });;
+         };
+        // console.log(Object.keys(obj));
+
+        // console.log('obj',obj);
+        // console.log("inside", obj);
     });
   };
