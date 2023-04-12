@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Roboto:wght@100;300;400;500&display=swap");
-body, * {
+body,
+* {
   margin: 0;
   padding: 0;
   font-size: 100%;
@@ -22,6 +23,22 @@ body, * {
   display: flex;
   justify-content: space-between;
   margin-bottom: 2rem;
+}
+.current-weather .bar .dropdown .dropContent {
+  display: none;
+  position: absolute;
+  z-index: 1;
+}
+.current-weather .bar .dropdown .dropContent .favoriteList {
+  display: flex;
+  flex-direction: column;
+}
+.current-weather .bar .dropdown .dropContent .favoriteList a {
+  cursor: pointer;
+}
+.current-weather .bar #searchInput {
+  height: -moz-fit-content;
+  height: fit-content;
 }
 .current-weather .innerWeather {
   background-color: aquamarine;

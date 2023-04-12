@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="./assets/sass/style.css">
     <title>Weather App</title>
 </head>
+
 <body>
     <header>
         <h1>Weather App</h1>
@@ -14,9 +16,18 @@
     <main>
         <div class="current-weather">
             <div class="bar">
-                <div class="dropdown">dropdown</div>
+
+                <div class="dropdown">
+                    <button class="dropButton nav-button" type="button" id="toggle-button"
+                        aria-label="open/close navigation">Favorite Cities</button>
+                    <div class="dropContent">
+                        <ol class="favoriteList">
+                        </ol>
+                    </div>
+                </div>
+
                 <input id="searchInput" placeholder="Enter a place" type="text">
-                
+
             </div>
             <div class="innerWeather">
                 <div class="weatherTitle">
@@ -34,6 +45,7 @@
             </div>
 
         </div>
+
         <div class="daily">
             <ul>
                 <li class="daily-items"></li>
@@ -58,12 +70,16 @@
 
     </main>
     <footer>
-      <h1>Copyright.</h1>  
+        <h1>Copyright.</h1>
     </footer>
-    
+
 </body>
 <script src="./assets/js/cityWeather.js"></script>
+<script src="./assets/js/app.js"></script>
 <script src="https://kit.fontawesome.com/65077a475d.js" crossorigin="anonymous"></script>
-<script src="./assets/js/autocomplete.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4-m1wtWaJQOdqT8R8xN5ADD-wnAnEbxI&libraries=places&callback=initAutocomplete" async defer></script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4-m1wtWaJQOdqT8R8xN5ADD-wnAnEbxI&libraries=places&callback=initAutocomplete&language=en"
+    async defer>
+</script>
+
 </html>
