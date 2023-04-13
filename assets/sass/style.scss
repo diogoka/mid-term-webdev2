@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Roboto:wght@100;300;400;500&display=swap');
 
+$backLinear: linear-gradient(315deg, #ffffff 0%, #5899e2 74%);
+
 body,
 * {
     margin: 0;
@@ -17,7 +19,7 @@ body {
 
 header {
     background-color: #ffffff;
-    background-image: linear-gradient(315deg, #ffffff 0%, #5899e2 74%);
+    background-image: $backLinear;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -26,7 +28,7 @@ header {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 87%;
+    width: 88%;
 
     h1 {
         font-size: 2.3rem;
@@ -42,7 +44,7 @@ main {
 
     .current-weather {
         background-color: #ffffff;
-        background-image: linear-gradient(315deg, #ffffff 0%, #5899e2 74%);
+        background-image: $backLinear;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -145,7 +147,6 @@ main {
 
                 #cityTemperature {
                     grid-area: temp;
-                    // padding-left: 32%;
                     padding-left: 75%;
                     font-size: 100px;
                     font-size: 2.5rem;
@@ -205,7 +206,7 @@ main {
 
 footer {
     background-color: #ffffff;
-    background-image: linear-gradient(315deg, #ffffff 0%, #5899e2 74%);
+    background-image: $backLinear;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
