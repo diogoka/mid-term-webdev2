@@ -59,6 +59,9 @@ main .current-weather .bar {
 main .current-weather .bar .dropdown #selectFavorites {
   width: 13rem;
 }
+main .current-weather .bar .dropdown #selectFavorites:first-child {
+  color: #757575;
+}
 main .current-weather .bar #searchInput {
   height: -moz-fit-content;
   height: fit-content;

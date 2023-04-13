@@ -64,6 +64,9 @@ main {
             .dropdown {
                 #selectFavorites {
                     width: 13rem;
+                    &:first-child {
+                        color: #757575;
+                    }
                 }
             }
 
@@ -71,9 +74,6 @@ main {
                 height: fit-content;
                 width: 13%;
             }
-
-
-
         }
 
         .mainWeather {
@@ -91,8 +91,6 @@ main {
                 right: 7rem;
             }
 
-            ;
-
             .mainTitle {
                 display: flex;
 
@@ -100,10 +98,6 @@ main {
                     padding-top: 15%;
                 }
             }
-
-
-
-
 
             #favoriteButton {
                 width: 100%;
@@ -124,7 +118,6 @@ main {
                     font-size: 2rem;
                 }
             }
-
 
             h1 {
                 font-size: 2rem;
@@ -186,17 +179,9 @@ main {
                     font-size: 3rem;
                 }
 
-
             }
 
-
-
-
-
-
-
         }
-
 
     }
 }
