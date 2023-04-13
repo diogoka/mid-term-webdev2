@@ -11,11 +11,22 @@ let forecast = {
     temp_min: 0
 }
 
+let autocomplete;
+let autoCompleteObject = {
+    name: '',
+    latitude: 0,
+    longitude: 0
+};
+
 let cityName = document.querySelector('#cityName');
 let cityTemperature = document.querySelector('#cityTemperature');
 let cityWeatherCondition = document.querySelector('#cityWeatherCondition');
 let cityMaxTemp = document.querySelector('#maxTemp');
 let cityMinTemp = document.querySelector('#minTemp');
+const favoriteButton = document.querySelector('#favoriteButton')
+const favoriteList = document.querySelector('.favoriteList')
+
+
 
 const getWeather = async (lat, lon, placeName) => {
     const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=metric`);
@@ -39,8 +50,7 @@ const renderWeather = async (lat, lon, placeName) => {
     checkFavorite();
 }
 
-
-const getBrowserLocation = (location) => {
+const getBrowserLocationSuccess = (location) => {
     lat = location.coords.latitude;
     lon = location.coords.longitude;
     currentPosition.push(lat);
@@ -53,29 +63,16 @@ const getBrowserLocationError = (err) => {
     window.alert(`Failed to get current location (${err.code}): ${err.message}. Default location loaded: Vancouver`);
     defaultLat = 49.2811465
     defaultLon = -123.1200766
-    console.log("defaultLoader");
     renderWeather(defaultLat, defaultLon);
 }
-
-window.addEventListener('load', () => {
-    console.log('Current Weather Loaded');
-    navigator.geolocation.getCurrentPosition(getBrowserLocation, getBrowserLocationError)
-});
 
 const loadBrowserPosition = () => {
     return new Promise((resolve) => {
         resolve(
-            console.log("Current Array ", currentPosition[0], currentPosition[1]),
             renderWeather(currentPosition[0], currentPosition[1]),
-            console.log("localStorage ", localStorage),
         );
     })
 }
-
-
-const favoriteButton = document.querySelector('#favoriteButton')
-const favoriteList = document.querySelector('.favoriteList')
-
 
 const checkFavorite = () => {
     let city = `${forecast.name}, ${forecast.country}`
@@ -93,27 +90,21 @@ const loadFavorite = () => {
     }
 }
 
-
-
 favoriteList.addEventListener('click', (e) => {
     let city = e.target.textContent;
     let position = localStorage.getItem(city);
     let lat = Number(position.split(',')[0]);
     let lon = Number(position.split(',')[1]);
-    console.log("city", city.split(',')[0]);
     renderWeather(lat, lon, city.split(',')[0]);
 })
 
 
 favoriteButton.addEventListener('click', () => {
     let city = `${forecast.name}, ${forecast.country}`
-    let storageValue = "";
     let position = `${autoCompleteObject.latitude}, ${autoCompleteObject.longitude}`
+
     if (position === "0, 0") {
         position = `${currentPosition[0]}, ${currentPosition[1]}`
-    } if (position === undefined) {
-        currentPosition[0] = 49.2811465;
-        currentPosition[1] = -123.1200766;
     }
     if (localStorage.getItem(city)) {
         localStorage.removeItem(city);
@@ -123,23 +114,14 @@ favoriteButton.addEventListener('click', () => {
         }
         return;
     } else {
-        console.log("currentPosition", currentPosition);
-        console.log("forecast", forecast);
-
+        if (position === "undefined, undefined") {
+            position = "49.2811465, -123.1200766"
+        }
         localStorage.setItem(city, position);
         favoriteButton.style.color = 'yellow';
         favoriteList.appendChild(document.createElement('a')).innerHTML = city;
     }
-    console.log('Favorite Button Clicked');
-    console.log(localStorage);
 })
-
-let autocomplete;
-let autoCompleteObject = {
-    name: '',
-    latitude: 0,
-    longitude: 0
-};
 
 window.initAutocomplete = function () {
     autocomplete = new google.maps.places.Autocomplete(
@@ -161,11 +143,12 @@ function onPlaceChanged() {
         forecast.name = place.name;
         autoCompleteObject.latitude = place.geometry.location.lat();
         autoCompleteObject.longitude = place.geometry.location.lng();
-
-        console.log("autocomplete", autoCompleteObject);
         renderWeather(autoCompleteObject.latitude, autoCompleteObject.longitude, autoCompleteObject.name);
+        document.getElementById('searchInput').value = '';
     }
 
 }
 
-
+window.addEventListener('load', () => {
+    navigator.geolocation.getCurrentPosition(getBrowserLocationSuccess, getBrowserLocationError)
+});

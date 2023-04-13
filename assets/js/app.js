@@ -1,5 +1,6 @@
 const dropButton = document.querySelector('#toggle-button');
 const dropContent = document.querySelector('.dropContent');
+const body = document.querySelector('body');
 
 dropButton.addEventListener('click', () => {
     console.log('Drop Button Clicked');
@@ -8,6 +9,13 @@ dropButton.addEventListener('click', () => {
         return;
     } else {
         dropContent.style.display = 'flex';
+        return;
+    }
+})
+
+body.addEventListener('click', (e) => {
+    if (e.target.id !== 'toggle-button') {
+        dropContent.style.display = 'none';
         return;
     }
 })
