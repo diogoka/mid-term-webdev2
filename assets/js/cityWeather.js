@@ -8,7 +8,8 @@ let forecast = {
     temperature: 0,
     weatherCondition: '',
     temp_max: 0,
-    temp_min: 0
+    temp_min: 0,
+    icon: ''
 }
 
 let autocomplete;
@@ -23,6 +24,7 @@ let cityTemperature = document.querySelector('#cityTemperature');
 let cityWeatherCondition = document.querySelector('#cityWeatherCondition');
 let cityMaxTemp = document.querySelector('#maxTemp');
 let cityMinTemp = document.querySelector('#minTemp');
+let weatherIcon = document.querySelector('#weatherIcon');
 const favoriteButton = document.querySelector('#favoriteButton')
 const favoriteList = document.querySelector('.favoriteList')
 
@@ -31,12 +33,14 @@ const favoriteList = document.querySelector('.favoriteList')
 const getWeather = async (lat, lon, placeName) => {
     const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=metric`);
     const data = await response.json();
+    console.log(data);
     placeName === undefined ? forecast.name = data.name : forecast.name = placeName;
     forecast.country = data.sys.country;
     forecast.temperature = Math.floor(data.main.temp);
     forecast.weatherCondition = data.weather[0].main;
     forecast.temp_max = Math.floor(data.main.temp_max);
     forecast.temp_min = Math.floor(data.main.temp_min);
+    forecast.icon = data.weather[0].icon;
     return forecast;
 }
 
@@ -47,6 +51,7 @@ const renderWeather = async (lat, lon, placeName) => {
     cityWeatherCondition.innerHTML = data.weatherCondition;
     cityMaxTemp.innerHTML = `Max ${data.temp_max}°C`;
     cityMinTemp.innerHTML = `Min ${data.temp_min}°C`;
+    weatherIcon.src = `http://openweathermap.org/img/wn/${data.icon}@2x.png`;
     checkFavorite();
 }
 
