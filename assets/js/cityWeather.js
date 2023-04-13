@@ -47,7 +47,8 @@ const getWeather = async (lat, lon, placeName) => {
 const renderWeather = async (lat, lon, placeName) => {
     const data = await getWeather(lat, lon, placeName);
     cityName.innerHTML = data.name;
-    cityTemperature.innerHTML = `${data.temperature}°C`;
+    cityTemperature.innerHTML = `${data.temperature}°`;
+    cityTemperature.innerHTML += `<span class="degree">C</span>`;
     cityWeatherCondition.innerHTML = data.weatherCondition;
     cityMaxTemp.innerHTML = `Max ${data.temp_max}°C`;
     cityMinTemp.innerHTML = `Min ${data.temp_min}°C`;
