@@ -88,3 +88,55 @@ body,
 
 }
 
+.daily, .hourly {
+    width: 85%;
+    margin: 20px auto;
+}
+
+.daily ul, .hourly ul {
+    display :flex;
+    justify-content: space-evenly;
+    background-color: cadetblue;
+    padding: 20px 0;
+    li {
+        box-sizing: border-box;
+        height: 200px;
+        background-color: aquamarine;
+        list-style: none;
+        padding: 10px;
+    }
+}
+
+.daily ul li {
+    width: 15%;
+}
+.hourly ul li {
+    width: 11%;
+}
+
+.hourly {
+    background-color: aquamarine;
+    text-align: center;
+    div {
+        background-color:cadetblue;
+        padding-top: 10px;
+        font-size: 1.5em;
+    }
+    ul {
+        padding-top: 7px;
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+.spinningCircle {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    padding-top: 200px;
+}
