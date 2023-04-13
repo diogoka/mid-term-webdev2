@@ -1,28 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="./assets/sass/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/sass/style.css">
+    <title>Weather App</title>
 </head>
+
 <body>
     <header>
         <h1>Weather App</h1>
     </header>
     <main>
-        <div><input class="favorite-city"><input class="search-bar"></div>
-        <div class="current-Weather">
+        <div class="current-weather">
+            <div class="bar">
+
+                <div class="dropdown">
+                    <button class="dropButton nav-button" type="button" id="toggle-button"
+                        aria-label="open/close navigation">Favorite Cities</button>
+                    <div class="dropContent">
+                        <ol class="favoriteList">
+                        </ol>
+                    </div>
+                </div>
+
+                <input id="searchInput" placeholder="Enter a place" type="text">
+
+            </div>
+            <div class="innerWeather">
+                <div class="weatherTitle">
+                    <h1 id="cityName"></h1>
+                    <button id="favoriteButton"><i class="fa fa-star"></i></button>
+                </div>
+                <div class="weatherInfo">
+                    <h1 id="cityTemperature"></h1>
+                    <h2 id="cityWeatherCondition"></h2>
+                    <div class="maxMin">
+                        <h3 id="maxTemp"></h3>
+                        <h3 id="minTemp"></h3>
+                    </div>
+                    <div class="icon">
+                        <img id="weatherIcon" src="" alt="weatherIcon">
+                    </div>
+                </div>
+            </div>
 
         </div>
+
         <div class="daily">
             <ul>
-                <li cass="daily-items"></li>
-                <li cass="daily-items"></li>
-                <li cass="daily-items"></li>
-                <li cass="daily-items"></li>
-                <li cass="daily-items"></li>
+                <li class="daily-items"></li>
+                <li class="daily-items"></li>
+                <li class="daily-items"></li>
+                <li class="daily-items"></li>
+                <li class="daily-items"></li>
             </ul>
         </div>
         <div class="hourly">
@@ -31,8 +64,17 @@
 
     </main>
     <footer>
-      <h1>Copyright.</h1>  
+        <h1>Copyright.</h1>
     </footer>
-    <script src="./assets/js/hourlyWeather.js"></script>
+    
 </body>
+<script src="./assets/js/cityWeather.js"></script>
+<script src="./assets/js/app.js"></script>
+<script src="https://kit.fontawesome.com/65077a475d.js" crossorigin="anonymous"></script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4-m1wtWaJQOdqT8R8xN5ADD-wnAnEbxI&libraries=places&callback=initAutocomplete&language=en"
+    async defer>
+</script>
+<script src="./assets/js/hourlyWeather.js"></script>
+
 </html>
