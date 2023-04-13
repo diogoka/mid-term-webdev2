@@ -20,13 +20,14 @@ let autoCompleteObject = {
 };
 
 let cityName = document.querySelector('#cityName');
+let cityCountry = document.querySelector('#cityCountry');
 let cityTemperature = document.querySelector('#cityTemperature');
 let cityWeatherCondition = document.querySelector('#cityWeatherCondition');
 let cityMaxTemp = document.querySelector('#maxTemp');
 let cityMinTemp = document.querySelector('#minTemp');
 let weatherIcon = document.querySelector('#weatherIcon');
 const favoriteButton = document.querySelector('#favoriteButton')
-const favoriteList = document.querySelector('.favoriteList')
+let selectFavorites = document.querySelector('#selectFavorites')
 
 
 
@@ -47,6 +48,7 @@ const getWeather = async (lat, lon, placeName) => {
 const renderWeather = async (lat, lon, placeName) => {
     const data = await getWeather(lat, lon, placeName);
     cityName.innerHTML = data.name;
+    cityCountry.innerHTML = data.country;
     cityTemperature.innerHTML = `${data.temperature}°`;
     cityTemperature.innerHTML += `<span class="degree">C</span>`;
     cityWeatherCondition.innerHTML = data.weatherCondition;
@@ -92,12 +94,12 @@ const checkFavorite = () => {
 const loadFavorite = () => {
     for (let i = 0; i < localStorage.length; i++) {
         let city = localStorage.key(i);
-        favoriteList.appendChild(document.createElement('a')).innerHTML = city;
+        selectFavorites.appendChild(document.createElement('option')).innerHTML = city;
     }
 }
 
-favoriteList.addEventListener('click', (e) => {
-    let city = e.target.textContent;
+selectFavorites.addEventListener('change', (e) => {
+    let city = e.target.value;
     let position = localStorage.getItem(city);
     let lat = Number(position.split(',')[0]);
     let lon = Number(position.split(',')[1]);
@@ -115,8 +117,8 @@ favoriteButton.addEventListener('click', () => {
     if (localStorage.getItem(city)) {
         localStorage.removeItem(city);
         favoriteButton.style.color = 'black';
-        for (const child of favoriteList.children) {
-            child.textContent === city ? favoriteList.removeChild(child) : null;
+        for (const child of selectFavorites.children) {
+            child.textContent === city ? selectFavorites.removeChild(child) : null;
         }
         return;
     } else {
@@ -125,7 +127,7 @@ favoriteButton.addEventListener('click', () => {
         }
         localStorage.setItem(city, position);
         favoriteButton.style.color = 'yellow';
-        favoriteList.appendChild(document.createElement('a')).innerHTML = city;
+        selectFavorites.appendChild(document.createElement('option')).innerHTML = city;
     }
 })
 

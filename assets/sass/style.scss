@@ -8,7 +8,7 @@ body,
     font-family: 'Roboto', sans-serif;
 }
 
-body{
+body {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -16,8 +16,8 @@ body{
 }
 
 header {
-    background-color: #2a2a72;
-    background-image: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%);
+    background-color: #ffffff;
+    background-image: linear-gradient(315deg, #ffffff 0%, #5899e2 74%);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -26,7 +26,7 @@ header {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 90%;
+    width: 87%;
 
     h1 {
         font-size: 2.3rem;
@@ -37,12 +37,175 @@ header {
 }
 
 
-main{
-width: 90%;
+main {
+    width: 90%;
 
-.current-weather {
-    background-color: #2a2a72;
-        background-image: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%);
+    .current-weather {
+        background-color: #ffffff;
+        background-image: linear-gradient(315deg, #ffffff 0%, #5899e2 74%);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        margin: 20px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 23rem;
+
+        .bar {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+
+            .dropdown {
+
+
+
+                #selectFavorites {
+                    width: 100%;
+                }
+            }
+
+            #searchInput {
+                height: fit-content;
+                width: 13%;
+            }
+
+
+
+        }
+
+        .mainWeather {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #A8C9EF;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+            padding: {
+                top: 1rem;
+                bottom: 1rem;
+                left: 7rem;
+                right: 7rem;
+            }
+
+            ;
+
+            .mainTitle {
+                display: flex;
+
+                #cityCountry {
+                    padding-top: 15%;
+                }
+            }
+
+
+
+
+
+            #favoriteButton {
+                width: 100%;
+                border: none;
+                background-color: transparent;
+                font-size: 1.5rem;
+                font-weight: 500;
+                color: black;
+                padding: 10px;
+                border-bottom: 2px solid transparent;
+                transition: all 0.3s ease-in-out;
+                cursor: pointer;
+                width: fit-content;
+                position: relative;
+                grid-area: weatherIcon;
+
+                i {
+                    font-size: 2rem;
+                }
+            }
+
+
+            h1 {
+                font-size: 2rem;
+                font-weight: 400;
+            }
+
+            .weatherInfo {
+                display: grid;
+                place-items: center;
+                grid-template-columns: repeat(2, minmax(min-content, max-content));
+                grid-template-rows: repeat(3, minmax(min-content, max-content));
+                grid-template-areas:
+                    "temp iconTemp"
+                    "desc desc"
+                    "minMax minMax"
+                ;
+
+                #cityTemperature {
+                    grid-area: temp;
+                    // padding-left: 32%;
+                    padding-left: 75%;
+                    font-size: 100px;
+                    font-size: 2.5rem;
+
+                    .degree {
+                        font-size: 1.7rem;
+                    }
+
+                }
+
+                #cityWeatherCondition {
+                    grid-area: desc;
+
+                }
+
+                .maxMin {
+                    grid-area: minMax;
+                }
+
+
+                .icon {
+                    grid-area: iconTemp;
+                    padding-top: 25%;
+                    padding-left: 17%;
+
+                    img {
+                        width: 68%;
+                    }
+
+                }
+            }
+
+            .weatherTitle {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                #cityName {
+                    font-size: 3rem;
+                }
+
+
+            }
+
+
+
+
+
+
+
+        }
+
+
+    }
+}
+
+footer {
+    background-color: #ffffff;
+    background-image: linear-gradient(315deg, #ffffff 0%, #5899e2 74%);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -51,173 +214,5 @@ width: 90%;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: 23rem;
-
-    .bar {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 2rem;
-
-        .dropdown {
-            button {
-
-                padding: {
-                    top: 0.5rem;
-                    bottom: 0.5rem;
-                    left: 1rem;
-                    right: 1rem;
-                }
-
-
-                transition: all 0.3s ease-in-out;
-                cursor: pointer;
-
-
-            }
-
-            .dropContent {
-                display: none;
-                position: absolute;
-                z-index: 1;
-
-                .favoriteList {
-                    display: flex;
-                    flex-direction: column;
-
-                    a {
-                        cursor: pointer;
-                    }
-                }
-
-            }
-        }
-
-        #searchInput {
-            height: fit-content;
-        }
-
-
-
-    }
-
-    .mainWeather {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: 0.5fr 0.5fr;
-        grid-template-areas: "none title weatherIcon" "none weather none";
-        background-color: #009FFD;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-
-        padding: {
-            top: 1rem;
-            bottom: 1rem;
-            left: 7rem;
-            right: 7rem;    
-        };
-
-        .weatherTitle{
-            grid-area: title;
-        }
-
-        .weatherInfo{
-            grid-area: weather;
-        }
-
-
-        #favoriteButton {
-            width: 100%;
-            border: none;
-            background-color: transparent;
-            font-size: 1.5rem;
-            font-weight: 500;
-            color: black;
-            padding: 10px;
-            border-bottom: 2px solid transparent;
-            transition: all 0.3s ease-in-out;
-            cursor: pointer;
-            width: fit-content;
-            position: relative;
-            grid-area: weatherIcon;
-
-            i {
-                font-size: 2rem;
-            }
-        }
-
-
-                
-
-
-
-
-
-        h1 {
-            font-size: 2rem;
-            font-weight: 400;
-        }
-
-        .weatherInfo {
-            display: grid;
-            place-items: center;
-            grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: 0.5fr 0.3fr 0.5fr;
-            grid-template-areas: 
-                "temp iconTemp"
-                "desc desc"
-                "minMax minMax"
-                ;
-            #cityTemperature{
-                grid-area: temp;
-                padding-left: 43%;
-                font-size: 100px;
-                font-size: 2.5rem;
-                .degree{
-                    font-size: 1.7rem;
-                }
-
-            }
-            #cityWeatherCondition{
-                grid-area: desc;
-                
-            }
-
-            .maxMin{
-                grid-area: minMax;
-            }
-
-
-            .icon{
-                grid-area: iconTemp;
-                padding-top: 25%;
-                img{
-                    width: 68%;
-                }
-
-            }
-        }
-
-        .weatherTitle {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            #cityName{
-                font-size: 3rem;
-            }
-
-
-        }
-
-
-
-
-
-
-
-    }
-
-
-}
+    width: 90%;
 }
