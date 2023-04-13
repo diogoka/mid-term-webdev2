@@ -57,7 +57,7 @@ main .current-weather .bar {
   margin-bottom: 2rem;
 }
 main .current-weather .bar .dropdown #selectFavorites {
-  width: 100%;
+  width: 13rem;
 }
 main .current-weather .bar #searchInput {
   height: -moz-fit-content;

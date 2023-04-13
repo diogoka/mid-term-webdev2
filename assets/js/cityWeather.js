@@ -104,6 +104,7 @@ selectFavorites.addEventListener('change', (e) => {
     let lat = Number(position.split(',')[0]);
     let lon = Number(position.split(',')[1]);
     renderWeather(lat, lon, city.split(',')[0]);
+    selectFavorites.options[0].selected = true;
 })
 
 
