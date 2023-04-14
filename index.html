@@ -1,36 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/sass/style.css">
-    <title>Document</title>
-    <link href="./assets/sass/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/sass/style.css">
+    <title>Weather App</title>
 </head>
+
 <body>
     <header>
         <h1>Weather App</h1>
     </header>
     <main>
-        <div class="search-bars"><input class="favorite-city"><input class="search-bar"></div>
-        <div class="current-Weather">
+        <div class="current-weather">
+            <div class="bar">
+                <div class="dropdown">
+                    <select name="favoriteCities" id="selectFavorites">
+                        <option value="" disabled selected>Favorite Cities</option>
+                    </select>
+                </div>
+
+                <input id="searchInput" placeholder=" Enter a place" type="text">
+
+            </div>
+            <div class="mainWeather">
+
+                <div class="mainTitle">
+                    <div class="weatherTitle">
+                        <h1 id="cityName"></h1>
+                        <h3 id="cityCountry"></h3>
+                    </div>
+                    <button id="favoriteButton"><i class="fa fa-star"></i></button>
+
+                </div>
+                    <div class="weatherInfo">
+                        <h1 id="cityTemperature"></h1>
+                        <h2 id="cityWeatherCondition"></h2>
+                        <div class="maxMin">
+                            <h3 id="maxTemp"></h3>
+                            <h3 id="minTemp"></h3>
+                        </div>
+                        <div class="icon">
+                            <img id="weatherIcon" src="" alt="weatherIcon">
+                        </div>
+                    </div>
+                
+            </div>
 
         </div>
+
         <div class="daily">
             <ul>
+                <li class="daily-items">day13</li>
+                <li class="daily-items">day14</li>
+                <li class="daily-items">day15</li>
+                <li class="daily-items">day16</li>
+                <li class="daily-items">day17</li>
             </ul>
         </div>
         <div class="hourly">
+            <div></div>
             <ul></ul>
         </div>
-
     </main>
     <footer>
-      <h1>Copyright.</h1>  
+        <h1>Copyright Daisuke, Diogo and Gerardo.</h1>
     </footer>
-    <script src="./assets/js/app.js"></script>
-    <script src="./assets/js/DailyWeather.js"></script>
-    <script src="./assets/js/hourlyWeather.js"></script>
+    <!----------------------------------------------------->
+    <!----------------------LOADING------------------------>
+    <!----------------------------------------------------->
+    <div class="spinningCircle" id="loader">
+        <svg
+        width="100"
+        height="100"
+        fill="none"
+        color="grey">
+            <defs>
+                <linearGradient id="half1">
+                <stop offset="0%" stop-opacity="0" stop-color="currentColor"/>
+                <stop offset="100%" stop-opacity="0.5" stop-color="currentColor"/>
+                </linearGradient>
+                <linearGradient id="half2">
+                <stop offset="0%" stop-opacity="1" stop-color="currentColor"/>
+                <stop offset="100%" stop-opacity="0.5" stop-color="currentColor"/>
+                </linearGradient>
+            </defs>
+
+            <g stroke-width="10">
+                <path stroke="url(#half1)" d="M 5 50 A 40 40 0 0 1 95 50"/>
+                <path stroke="url(#half2)" d="M 95 50 A 40 40 0 0 1 5 50"/>
+                <animateTransform
+                attributeName="transform"
+                type="rotate"
+                from="0 50 50" 
+                to="360 50 50"
+                dur="2s"
+                repeatCount="indefinite"/>
+            </g>
+        </svg>
+    </div>
+    <!----------------------------------------------------->
+    <!----------------------LOADING------------------------>
+    <!----------------------------------------------------->
 </body>
+<script src="./assets/js/app.js"></script>
+<script src="https://kit.fontawesome.com/65077a475d.js" crossorigin="anonymous"></script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4-m1wtWaJQOdqT8R8xN5ADD-wnAnEbxI&libraries=places&callback=initAutocomplete&language=en"
+    async defer>
+</script>
 </html>
