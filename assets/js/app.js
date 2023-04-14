@@ -32,31 +32,43 @@ const loader = document.querySelector('#loader');
 
 
 const getWeather = async (lat, lon, placeName) => {
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=metric`);
-    const data = await response.json();
-    console.log(data);
-    placeName === undefined ? forecast.name = data.name : forecast.name = placeName;
-    forecast.country = data.sys.country;
-    forecast.temperature = Math.floor(data.main.temp);
-    forecast.weatherCondition = data.weather[0].main;
-    forecast.temp_max = Math.floor(data.main.temp_max);
-    forecast.temp_min = Math.floor(data.main.temp_min);
-    forecast.icon = data.weather[0].icon;
-    return forecast;
+
+    try {
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=metric`);
+        const data = await response.json();
+        console.log(data);
+        placeName === undefined ? forecast.name = data.name : forecast.name = placeName;
+        forecast.country = data.sys.country;
+        forecast.temperature = Math.floor(data.main.temp);
+        forecast.weatherCondition = data.weather[0].main;
+        forecast.temp_max = Math.floor(data.main.temp_max);
+        forecast.temp_min = Math.floor(data.main.temp_min);
+        forecast.icon = data.weather[0].icon;
+        return forecast;
+    } catch (error) {
+        alert(`Failed to get weather data: ${error}. Please try again later.`);
+        hideLoader();
+    }
 }
 
 const renderWeather = async (lat, lon, placeName) => {
-    const data = await getWeather(lat, lon, placeName);
-    cityName.innerHTML = data.name;
-    cityCountry.innerHTML = data.country;
-    cityTemperature.innerHTML = `${data.temperature}°`;
-    cityTemperature.innerHTML += `<span class="degree">C</span>`;
-    cityWeatherCondition.innerHTML = data.weatherCondition;
-    cityMaxTemp.innerHTML = `Max ${data.temp_max}°C`;
-    cityMinTemp.innerHTML = `Min ${data.temp_min}°C`;
-    weatherIcon.src = `http://openweathermap.org/img/wn/${data.icon}@2x.png`;
-    checkFavorite();
-    hideLoader();
+    try {
+        const data = await getWeather(lat, lon, placeName);
+        cityName.innerHTML = data.name;
+        cityCountry.innerHTML = data.country;
+        cityTemperature.innerHTML = `${data.temperature}°`;
+        cityTemperature.innerHTML += `<span class="degree">C</span>`;
+        cityWeatherCondition.innerHTML = data.weatherCondition;
+        cityMaxTemp.innerHTML = `Max ${data.temp_max}°C`;
+        cityMinTemp.innerHTML = `Min ${data.temp_min}°C`;
+        weatherIcon.src = `http://openweathermap.org/img/wn/${data.icon}@2x.png`;
+        checkFavorite();
+        hideLoader();
+    } catch (error) {
+        alert(`Failed to get weather data: ${error}. Please try again later.`);
+        hideLoader();
+
+    }
 }
 
 
@@ -127,6 +139,10 @@ const getHoursDayWeather = (lat, lon) => {
 
                 })//addEventListner
             })//forEach
+        })
+        .catch((error) => {
+            alert(`Failed to get weather data: ${error}. Please try again later.`);
+            hideLoader();
         });
 };
 
@@ -150,7 +166,7 @@ const getBrowserLocationError = (err) => {
 }
 
 const loadBrowserPosition = () => {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         resolve(
             renderWeather(currentPosition[0], currentPosition[1]),
             getHoursDayWeather(currentPosition[0], currentPosition[1])

@@ -3,6 +3,20 @@
 $backLinear: linear-gradient(315deg, #ffffff 0%, #5899e2 74%);
 $cardColor: #A8C9EF;
 
+@mixin cards {
+    background-color: #ffffff;
+    background-image: $backLinear;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 90%;
+}
+
 body,
 * {
     margin: 0;
@@ -19,17 +33,7 @@ body {
 }
 
 header {
-    background-color: #ffffff;
-    background-image: $backLinear;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    margin: 20px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 88%;
+    @include cards;
 
     h1 {
         font-size: 2.3rem;
@@ -41,20 +45,17 @@ header {
 
 
 main {
-    width: 90%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     .current-weather {
-        background-color: #ffffff;
-        background-image: $backLinear;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        margin: 20px 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
+        @include cards;
+
+
         height: 23rem;
+
 
         .bar {
             width: 100%;
@@ -189,25 +190,18 @@ main {
 }
 
 footer {
-    background-color: #ffffff;
-    background-image: $backLinear;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    margin: 20px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 88%;
+    @include cards;
 }
 
 
 .daily {
+    width: 90%;
+
     ul {
         display: flex;
         justify-content: space-evenly;
         padding: 20px 0;
+
         li {
             background-color: $cardColor;
             list-style: none;
@@ -220,11 +214,14 @@ footer {
     }
 }
 
-.hourly{
+.hourly {
+    width: 90%;
+
     ul {
         display: flex;
         justify-content: space-evenly;
         padding: 20px 0;
+
         li {
             box-sizing: border-box;
             height: 200px;
@@ -235,7 +232,7 @@ footer {
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
     }
-} 
+}
 
 
 .hourly ul li {
@@ -290,11 +287,12 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
-    background-color: rgba(255, 255, 255, 0.6);
-    // background-color: black;
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.6); 
     text-align: center;
     width: 100%;
-    height: 141%;
+    height: 100vh;
+    z-index: 100;
+    top: 0;
 
 }
