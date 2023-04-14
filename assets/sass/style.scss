@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Roboto:wght@100;300;400;500&display=swap');
 
 $backLinear: linear-gradient(315deg, #ffffff 0%, #5899e2 74%);
+$cardColor: #A8C9EF;
 
 body,
 * {
@@ -64,6 +65,7 @@ main {
             .dropdown {
                 #selectFavorites {
                     width: 13rem;
+
                     &:first-child {
                         color: #757575;
                     }
@@ -80,7 +82,7 @@ main {
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #A8C9EF;
+            background-color: $cardColor;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
@@ -197,30 +199,45 @@ footer {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 90%;
-}
-.daily, .hourly {
-    width: 85%;
-    margin: 20px auto;
+    width: 88%;
 }
 
-.daily ul, .hourly ul {
-    display :flex;
-    justify-content: space-evenly;
-    background-color: cadetblue;
-    padding: 20px 0;
-    li {
-        box-sizing: border-box;
-        height: 200px;
-        background-color: aquamarine;
-        list-style: none;
-        padding: 10px;
+
+.daily {
+    ul {
+        display: flex;
+        justify-content: space-evenly;
+        padding: 20px 0;
+        li {
+            background-color: $cardColor;
+            list-style: none;
+            padding: 10px;
+            height: 10rem;
+            width: 10rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
     }
 }
 
-.daily ul li {
-    width: 15%;
-}
+.hourly{
+    ul {
+        display: flex;
+        justify-content: space-evenly;
+        padding: 20px 0;
+        li {
+            box-sizing: border-box;
+            height: 200px;
+            background-color: $cardColor;
+            list-style: none;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+    }
+} 
+
+
 .hourly ul li {
     width: 11%;
 }
@@ -228,26 +245,56 @@ footer {
 .hourly {
     background-color: aquamarine;
     text-align: center;
+
     div {
-        background-color:cadetblue;
+        background-color: cadetblue;
         padding-top: 10px;
         font-size: 1.5em;
     }
+
     ul {
         padding-top: 7px;
     }
 }
 
-.hidden {
-    display: none;
+.daily {
+    background-color: #ffffff;
+    background-image: $backLinear;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 15rem;
 }
 
+.hourly {
+    background-color: #ffffff;
+    background-image: $backLinear;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 15rem;
+}
+
+
+
+
 .spinningCircle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
     background-color: rgba(255, 255, 255, 0.6);
+    // background-color: black;
     text-align: center;
-    padding-top: 200px;
+    width: 100%;
+    height: 141%;
+
 }
