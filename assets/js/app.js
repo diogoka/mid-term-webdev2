@@ -31,7 +31,6 @@ let selectFavorites = document.querySelector('#selectFavorites')
 const loader = document.querySelector('#loader');
 
 
-
 const getWeather = async (lat, lon, placeName) => {
     const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=metric`);
     const data = await response.json();
@@ -57,6 +56,7 @@ const renderWeather = async (lat, lon, placeName) => {
     cityMinTemp.innerHTML = `Min ${data.temp_min}°C`;
     weatherIcon.src = `http://openweathermap.org/img/wn/${data.icon}@2x.png`;
     checkFavorite();
+    hideLoader();
 }
 
 
@@ -64,59 +64,69 @@ const getHoursDayWeather = (lat, lon) => {
     console.log("getHoursDayWeather", lat, lon);
     const apiKey = "7986c02714e4efe92ca1c09ef5031f3f";
     const url = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey + "&units=metric";
+
     fetch(url)
         .then((data) => { return data.json() })
         .then((data) => {
-            const dailyData = document.querySelectorAll(".daily-items");
-            dailyData.forEach((value) => {
-                value.addEventListener("click", () => {
-                    document.querySelector(".hourly").classList.remove("hidden");
-                    const hourlyLi = document.querySelectorAll(".hourly li");
-                    hourlyLi.forEach((value) => {
-                        value.remove();
-                    });
 
-                    const dateConvert = value.innerText.split("day")[1];
-                    data.list.forEach((value, index) => {
+            const hrlyData = (value) => {
+
+                const dateConvert_First = value.innerText.split("day")[1];
+                data.list.forEach((value, index) => {
+                    const dateTime = new Date(value.dt * 1000);
+                    const month = dateTime.getMonth() + 1;
+                    const date = dateTime.getDate();
+
+                    if (date == dateConvert_First) {
                         const dateTime = new Date(value.dt * 1000);
                         const month = dateTime.getMonth() + 1;
                         const date = dateTime.getDate();
+                        const hours = dateTime.getHours();
+                        const min = String(dateTime.getMinutes()).padStart(2, '0');
+                        let convertTo12h = "";
 
-                        if (date == dateConvert) {
-                            const dateTime = new Date(value.dt * 1000);
-                            const month = dateTime.getMonth() + 1;
-                            const date = dateTime.getDate();
-                            const hours = dateTime.getHours();
-                            const min = String(dateTime.getMinutes()).padStart(2, '0');
-                            let convertTo12h = "";
-
-                            if (hours == 12) {
-                                convertTo12h = hours + ":" + min + "&nbsp;p.m.";
-                            } else if (hours == 24) {
-                                convertTo12h = 12 + ":" + min + "&nbsp;a.m.";
-                            } else if (hours < 12) {
-                                convertTo12h = hours + ":" + min + "&nbsp;a.m.";
-                            } else {
-                                convertTo12h = hours - 12 + ":" + min + "&nbsp;p.m.";
-                            }
-
-                            const m_d = month + "/" + date;
-                            const time = convertTo12h + '&nbsp;';
-                            const weather = data.list[index]["weather"][0]["main"];
-                            const icon = '<img class="weatherIcon' + index + '" alt="aa"/>';
-                            const temp = Math.round(value["main"]["temp"]) + "&deg;C";
-                            const li = '<li>' + time + '<br/>' + icon + weather + '<br/>' + temp + '</li>';
-                            document.querySelector(".hourly div").innerText = m_d;
-                            document.querySelector(".hourly ul").insertAdjacentHTML("beforeend", li);
-                            const iconImg = value["weather"][0]["icon"];
-                            const getImg = document.querySelector(".weatherIcon" + index);
-                            getImg.src = `http://openweathermap.org/img/wn/${iconImg}@2x.png`;
+                        if (hours == 12) {
+                            convertTo12h = hours + ":" + min + "&nbsp;p.m.";
+                        } else if (hours == 24) {
+                            convertTo12h = 12 + ":" + min + "&nbsp;a.m.";
+                        } else if (hours < 12) {
+                            convertTo12h = hours + ":" + min + "&nbsp;a.m.";
+                        } else {
+                            convertTo12h = hours - 12 + ":" + min + "&nbsp;p.m.";
                         }
-                    })
 
-                })
+                        const m_d = month + "/" + date;
+                        const time = convertTo12h + '&nbsp;';
+                        const weather = data.list[index]["weather"][0]["main"];
+                        const icon = '<img class="weatherIcon' + index + '" alt="aa"/>';
+                        const temp = Math.round(value["main"]["temp"]) + "&deg;C";
+                        const li = '<li>' + time + '<br/>' + icon + weather + '<br/>' + temp + '</li>';
+                        document.querySelector(".hourly div").innerText = m_d;
+                        document.querySelector(".hourly ul").insertAdjacentHTML("beforeend", li);
+                        const iconImg = value["weather"][0]["icon"];
+                        const getImg = document.querySelector(".weatherIcon" + index);
+                        getImg.src = `http://openweathermap.org/img/wn/${iconImg}@2x.png`;
+                    }//if(date==dateConvert)
+                })//forEach
+            }//function
 
-            })
+
+            const dailyData_First = document.querySelector(".daily-items");
+            hrlyData(dailyData_First);
+
+            const dailyData = document.querySelectorAll(".daily-items");
+            dailyData.forEach((value) => {
+                value.addEventListener("click", () => {
+
+                    const hourlyLi = document.querySelectorAll(".hourly li");
+                    hourlyLi.forEach((vl) => {
+                        vl.remove();
+                    });
+
+                    hrlyData(value);
+
+                })//addEventListner
+            })//forEach
         });
 };
 
@@ -169,8 +179,7 @@ selectFavorites.addEventListener('change', (e) => {
     let position = localStorage.getItem(city);
     let lat = Number(position.split(',')[0]);
     let lon = Number(position.split(',')[1]);
-    renderWeather(lat, lon, city.split(',')[0]);
-    getHoursDayWeather(lat, lon);
+    renderWithLoader(lat, lon, city.split(',')[0]);
     selectFavorites.options[0].selected = true;
 })
 
@@ -232,8 +241,6 @@ const renderWithLoader = (lat, lon, name) => {
         showLoader();
         renderWeather(lat, lon, name);
         getHoursDayWeather(lat, lon);
-        return hideLoader();
-
     })
 }
 
