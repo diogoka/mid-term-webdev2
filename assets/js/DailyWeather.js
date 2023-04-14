@@ -52,16 +52,24 @@ function success(location) {
             obj[time].push(data.list[i])
           };
         
-          console.log('time', time);
+          // console.log('time', time);
           // li='<li>'+obj+'<br/>'+data.list[i]["main"]["temp_max"]+'<br/>'+data.list[i]["main"]["temp_min"]+'<br/>'+'</li>';
           // list.insertAdjacentHTML("beforeend",li)
           
           
         }
-        for (const j in obj) {
-          obj[j].forEach(element => {
-             console.log(Math.max(element.main.temp_max));
-             
+        // for (const day in obj) {
+        //   console.log('day', day);
+        //   let maxTemp = -Infinity;
+        //   obj[day].forEach(element => {
+        //     console.log('el', element);
+            //  console.log(Math.max(element.main.temp_max));
+          
+        if(element[1]){
+          console.log(Array.reduce.time.el.main.temp_max)
+        };
+    
+            //COMPARE ELEMENTS WITH REDUCE FUNCTION
 
           });;
          };
@@ -69,5 +77,5 @@ function success(location) {
 
         // console.log('obj',obj);
         // console.log("inside", obj);
-    });
-  };
+  //   });
+  // };
