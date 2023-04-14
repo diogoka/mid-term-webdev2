@@ -1,87 +1,78 @@
-//------------succeed to get current location------------
-function success(location) {
-  const latitude=location.coords.latitude;
-  const longitude=location.coords.longitude;
-  ThreeHoursWeather(latitude, longitude);
-}
 
-//------------fail to get current location------------
-function error(err) {
-  const defaultLat = 49.2811465;
-  const defaultLon = -123.1200766;
-  window.alert(`Failed to get current location(${err.code}): ${err.message}`);
-  ThreeHoursWeather(defaultLat, defaultLon);
-}
 
-//------------get current location------------
-navigator.geolocation.getCurrentPosition(success, error);
 
-//------------function for API------------
-const ThreeHoursWeather=(lat,lon)=>{
-  const apiKey="7986c02714e4efe92ca1c09ef5031f3f";
-  const url="https://api.openweathermap.org/data/2.5/forecast?lat="+lat+"&lon="+lon+"&appid="+apiKey+"&units=metric";
-  
+const weather = (lat, lon) => {
+  const apiKey = "7986c02714e4efe92ca1c09ef5031f3f";
+  let url = "";
+  if (lon == "undifined") {
+    url = "https://api.openweathermap.org/data/2.5/forecast?q=" + lat + "&appid=" + apiKey;
+  } else {
+    url = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey + "&cnt=" + "&units=metric";
+  }
+
   fetch(url)
-  .then((data)=>{return data.json()})
-  .then((data)=>{
+    .then((data) => { return data.json() })
+    .then((data) => {
+      const day = {}
+      let daysToRender = {};
+      for (let i = 0; i < data.list.length; i++) {
+        const dateTime = new Date(data.list[i].dt * 1000);
+        let correctDate = dateTime.toUTCString().split(" ")[1] + " " + dateTime.toUTCString().split(" ")[2];
+        const month = dateTime.getMonth() + 1;
+        const date = dateTime.getDate();
+        time = month + "/" + date;
+        if (!day[correctDate]) {
+          day[correctDate] = [data.list[i]]
+        } else {
+          day[correctDate].push(data.list[i])
+        };
+      }
 
-      const hrlyData=(value)=>{
-    
-          const dateConvert_First=value.innerText.split("day")[1];
-          data.list.forEach((value, index)=>{
-              const dateTime=new Date(value.dt*1000);
-              const month = dateTime.getMonth()+1;
-              const date = dateTime.getDate();
+      for (const key in day) {
+        if (Object.keys(daysToRender).length < 5) {
+          let temp = day[key].reduce((acc, cur) => {
+            return acc + cur.main.temp;
+          }, 0)
+          temp = temp / day[key].length;
+          daysToRender[key] = {
+            average: Math.floor(temp),
+          };
+          let maximum = day[key].reduce((acc, cur) => {
+            return acc > cur.main.temp_max ? acc : cur.main.temp_max;
+          }, 0)
+          daysToRender[key].maximum = Math.floor(maximum);
+          let minimum = day[key].reduce((acc, cur) => {
+            return acc < cur.main.temp_min ? acc : cur.main.temp_min;
+          }, +Infinity)
 
-              if(date==dateConvert_First){
-                const dateTime=new Date(value.dt*1000);
-                const month = dateTime.getMonth()+1;
-                const date = dateTime.getDate();
-                const hours = dateTime.getHours();
-                const min = String(dateTime.getMinutes()).padStart(2, '0');
-                let convertTo12h="";
-            
-                if(hours==12){
-                    convertTo12h=hours+":"+min+"&nbsp;p.m.";
-                  }else if(hours==24){
-                    convertTo12h=12+":"+min+"&nbsp;a.m.";
-                  }else if(hours<12){
-                    convertTo12h=hours+":"+min+"&nbsp;a.m.";
-                  }else{
-                    convertTo12h=hours-12+":"+min+"&nbsp;p.m.";
-                }
+          daysToRender[key].minimum = Math.floor(minimum);
 
-                const m_d=month+"/"+date;
-                const time=convertTo12h+'&nbsp;';
-                const weather=data.list[index]["weather"][0]["main"];
-                const icon='<img class="weatherIcon'+index+'" alt="aa"/>';                       
-                const temp=Math.round(value["main"]["temp"])+"&deg;C";
-                const li='<li>'+time+'<br/>'+icon+weather+'<br/>'+temp+'</li>';
-                document.querySelector(".hourly div").innerText=m_d;
-                document.querySelector(".hourly ul").insertAdjacentHTML("beforeend",li);
-                const iconImg=value["weather"][0]["icon"];
-                const getImg=document.querySelector(".weatherIcon"+index);
-                getImg.src=`http://openweathermap.org/img/wn/${iconImg}@2x.png`;
-            }//if(date==dateConvert)
-        })//forEach
-      }//function
+          let icon = day[key].reduce((acc, cur) => {
+            return acc > Number(cur.weather[0].icon.slice(0, 2)) ? acc : Number(cur.weather[0].icon.slice(0, 2));
+          }, 0)
+          let srcIcon = icon + "d";
+          daysToRender[key].icon = srcIcon;
+
+        } else {
+          break;
+        }
+      }
+
+      console.log("TAMANHO", Object.keys(daysToRender).length);
+      console.log("daysToRender", daysToRender);
+    })
+
+}
 
 
-      const dailyData_First=document.querySelector(".daily-items");
-      hrlyData(dailyData_First);
+const renderDays = async (lat, lon) => {
 
-      const dailyData=document.querySelectorAll(".daily-items");
-      dailyData.forEach((value)=>{
-          value.addEventListener("click",()=>{
-                    
-              const hourlyLi=document.querySelectorAll(".hourly li");
-              hourlyLi.forEach((vl)=>{
-                  vl.remove();
-              });
+  const data = await weather(lat, lon);
+  console.log("data", data);
 
-              hrlyData(value);
-              
-              })//addEventListner
-        })//forEach
-  });
-};
+
+}
+
+renderDays(49.2811465, -123.1200766);
+
+

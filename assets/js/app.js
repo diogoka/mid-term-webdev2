@@ -36,7 +36,6 @@ const getWeather = async (lat, lon, placeName) => {
     try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=metric`);
         const data = await response.json();
-        console.log(data);
         placeName === undefined ? forecast.name = data.name : forecast.name = placeName;
         forecast.country = data.sys.country;
         forecast.temperature = Math.floor(data.main.temp);
@@ -81,9 +80,106 @@ const getHoursDayWeather = (lat, lon) => {
         .then((data) => { return data.json() })
         .then((data) => {
 
+
+
+            const dayData = () => {
+                const day = {}
+                let daysToRender = {};
+                for (let i = 0; i < data.list.length; i++) {
+                    const dateTime = new Date(data.list[i].dt * 1000);
+                    let correctDate = dateTime.toString().split(" ")[2] + " " + dateTime.toString().split(" ")[1];
+                    const month = dateTime.getMonth() + 1;
+                    const date = dateTime.getDate();
+                    time = month + "/" + date;
+                    if (!day[correctDate]) {
+                        day[correctDate] = [data.list[i]]
+                    } else {
+                        day[correctDate].push(data.list[i])
+                    };
+                }
+
+
+
+                for (const key in day) {
+                    if (Object.keys(daysToRender).length < 5) {
+                        let temp = day[key].reduce((acc, cur) => {
+                            return acc + cur.main.temp;
+                        }, 0)
+                        temp = temp / day[key].length;
+                        daysToRender[key] = {
+                            average: Math.floor(temp),
+                        };
+                        let maximum = day[key].reduce((acc, cur) => {
+                            return acc > cur.main.temp_max ? acc : cur.main.temp_max;
+                        }, 0)
+                        daysToRender[key].maximum = Math.floor(maximum);
+                        let minimum = day[key].reduce((acc, cur) => {
+                            return acc < cur.main.temp_min ? acc : cur.main.temp_min;
+                        }, +Infinity)
+                        daysToRender[key].minimum = Math.floor(minimum);
+                        let icon = day[key].reduce((acc, cur) => {
+                            return acc > Number(cur.weather[0].icon.slice(0, 2)) ? acc : Number(cur.weather[0].icon.slice(0, 2));
+                        }, 0)
+
+                        if (icon < 10) {
+                            icon = "0" + icon;
+                        }
+                        let srcIcon = icon + "d";
+                        daysToRender[key].icon = srcIcon;
+
+                    } else {
+                        break;
+                    }
+                }
+
+                console.log("TAMANHO", Object.keys(daysToRender).length);
+                console.log("daysToRender", daysToRender);
+
+                let dailyUl = document.querySelector(".daily > ul");
+
+
+                while (dailyUl.firstChild) {
+                    dailyUl.removeChild(dailyUl.firstChild);
+                }
+
+                for (const key in daysToRender) {
+                    console.log("key", typeof key);
+                    console.log("dailyUL", dailyUl);
+                    dailyUl.innerHTML += `<li class="daily-items">${key}
+                                        <h1 class="temp">${daysToRender[key].average}°C</h1>
+                                        <div class="inner-icon"> 
+                                            <img src = http://openweathermap.org/img/wn/${daysToRender[key].icon}@2x.png alt="dayIcon">
+                                        </div>
+                                        <h2 class="maxTemp">Max.:${daysToRender[key].maximum}°</h2>
+                                        <h2 class="minTemp">Min.:${daysToRender[key].minimum}°</h2>
+                                        </li>`;
+
+                }
+
+                let d = document.querySelector(".daily-items");
+                console.log("tentativa1", d.innerText.slice(0, 2));
+
+            }
+
+
+            const finalRender = async () => {
+                const awaitDayData = await dayData();
+                console.log("awaitDayData", awaitDayData);
+                const dailyData_First = document.querySelector(".daily-items");
+                console.log("dailyData_First", dailyData_First);
+                hrlyData(dailyData_First);
+
+            }
+
+
+
+
+
+
+
             const hrlyData = (value) => {
 
-                const dateConvert_First = value.innerText.split("day")[1];
+                const dateConvert_First = value.innerText.slice(0, 2);
                 data.list.forEach((value, index) => {
                     const dateTime = new Date(value.dt * 1000);
                     const month = dateTime.getMonth() + 1;
@@ -118,13 +214,14 @@ const getHoursDayWeather = (lat, lon) => {
                         const iconImg = value["weather"][0]["icon"];
                         const getImg = document.querySelector(".weatherIcon" + index);
                         getImg.src = `http://openweathermap.org/img/wn/${iconImg}@2x.png`;
-                    }//if(date==dateConvert)
-                })//forEach
-            }//function
+                    }
+                })
+            }
 
 
-            const dailyData_First = document.querySelector(".daily-items");
-            hrlyData(dailyData_First);
+            finalRender()
+
+
 
             const dailyData = document.querySelectorAll(".daily-items");
             dailyData.forEach((value) => {
@@ -137,9 +234,15 @@ const getHoursDayWeather = (lat, lon) => {
 
                     hrlyData(value);
 
-                })//addEventListner
-            })//forEach
+                })
+            })
         })
+
+
+
+
+
+
         .catch((error) => {
             alert(`Failed to get weather data: ${error}. Please try again later.`);
             hideLoader();
@@ -266,7 +369,6 @@ const showLoader = () => {
 
 const hideLoader = () => {
     loader.style.display = 'none';
-    console.log('hide');
 }
 
 window.addEventListener('load', () => {
