@@ -160,6 +160,7 @@ footer {
   justify-content: center;
   flex-direction: column;
   width: 90%;
+}
 
 .daily, .hourly {
   width: 85%;
