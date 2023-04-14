@@ -16,35 +16,37 @@
     <main>
         <div class="current-weather">
             <div class="bar">
-
                 <div class="dropdown">
-                    <button class="dropButton nav-button" type="button" id="toggle-button"
-                        aria-label="open/close navigation">Favorite Cities</button>
-                    <div class="dropContent">
-                        <ol class="favoriteList">
-                        </ol>
-                    </div>
+                    <select name="favoriteCities" id="selectFavorites">
+                        <option value="" disabled selected>Favorite Cities</option>
+                    </select>
                 </div>
 
-                <input id="searchInput" placeholder="Enter a place" type="text">
+                <input id="searchInput" placeholder=" Enter a place" type="text">
 
             </div>
-            <div class="innerWeather">
-                <div class="weatherTitle">
-                    <h1 id="cityName"></h1>
+            <div class="mainWeather">
+
+                <div class="mainTitle">
+                    <div class="weatherTitle">
+                        <h1 id="cityName"></h1>
+                        <h3 id="cityCountry"></h3>
+                    </div>
                     <button id="favoriteButton"><i class="fa fa-star"></i></button>
+
                 </div>
-                <div class="weatherInfo">
-                    <h1 id="cityTemperature"></h1>
-                    <h2 id="cityWeatherCondition"></h2>
-                    <div class="maxMin">
-                        <h3 id="maxTemp"></h3>
-                        <h3 id="minTemp"></h3>
+                    <div class="weatherInfo">
+                        <h1 id="cityTemperature"></h1>
+                        <h2 id="cityWeatherCondition"></h2>
+                        <div class="maxMin">
+                            <h3 id="maxTemp"></h3>
+                            <h3 id="minTemp"></h3>
+                        </div>
+                        <div class="icon">
+                            <img id="weatherIcon" src="" alt="weatherIcon">
+                        </div>
                     </div>
-                    <div class="icon">
-                        <img id="weatherIcon" src="" alt="weatherIcon">
-                    </div>
-                </div>
+                
             </div>
 
         </div>
@@ -64,7 +66,7 @@
         </div>
     </main>
     <footer>
-        <h1>Copyright.</h1>
+        <h1>Copyright Daisuke, Diogo and Gerardo.</h1>
     </footer>
     <!----------------------------------------------------->
     <!----------------------LOADING------------------------>
