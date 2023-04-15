@@ -86,7 +86,10 @@ main .current-weather .mainWeather {
 main .current-weather .mainWeather .mainTitle {
   display: flex;
 }
-main .current-weather .mainWeather .mainTitle #cityCountry {
+main .current-weather .mainWeather .mainTitle .weatherTitle {
+  align-items: baseline;
+}
+main .current-weather .mainWeather .mainTitle .weatherTitle #cityCountry {
   padding-top: 15%;
 }
 main .current-weather .mainWeather #favoriteButton {
@@ -167,7 +170,25 @@ footer {
 }
 
 .daily {
+  background-color: #ffffff;
+  background-image: linear-gradient(315deg, #ffffff 0%, #5899e2 74%);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   width: 90%;
+  align-items: normal;
+  height: 15rem;
+  position: relative;
+}
+.daily .rightArrow {
+  position: absolute;
+  left: 0;
+  display: none;
 }
 .daily ul {
   display: flex;
@@ -179,70 +200,59 @@ footer {
   list-style: none;
   padding: 10px;
   height: 10rem;
-  width: 10rem;
+  width: 15%;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .hourly {
+  background-color: #ffffff;
+  background-image: linear-gradient(315deg, #ffffff 0%, #5899e2 74%);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   width: 90%;
+  align-items: normal;
+  height: 12rem;
+  text-align: center;
+  position: relative;
+}
+.hourly .upArrow {
+  position: absolute;
+  top: -25px;
+}
+.hourly .showDate {
+  font-size: 1.5em;
 }
 .hourly ul {
   display: flex;
   justify-content: space-evenly;
-  padding: 20px 0;
+  padding: 20px 0 0;
 }
 .hourly ul li {
+  width: 12%;
   box-sizing: border-box;
-  height: 200px;
+  height: 150px;
   background-color: #A8C9EF;
   list-style: none;
-  padding: 10px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
-
-.hourly ul li {
-  width: 11%;
+.hourly ul li span {
+  display: block;
 }
-
-.hourly {
-  background-color: aquamarine;
-  text-align: center;
+.hourly ul li img {
+  width: 60%;
 }
-.hourly div {
-  background-color: cadetblue;
-  padding-top: 10px;
-  font-size: 1.5em;
-}
-.hourly ul {
-  padding-top: 7px;
-}
-
-.daily {
-  background-color: #ffffff;
-  background-image: linear-gradient(315deg, #ffffff 0%, #5899e2 74%);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  margin: 20px 0;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  height: 15rem;
-}
-
-.hourly {
-  background-color: #ffffff;
-  background-image: linear-gradient(315deg, #ffffff 0%, #5899e2 74%);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  margin: 20px 0;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  height: 15rem;
+.hourly ul li div {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .spinningCircle {
@@ -256,4 +266,123 @@ footer {
   height: 100vh;
   z-index: 100;
   top: 0;
+}
+
+@media screen and (max-width: 375px) {
+  body {
+    padding: 0 10px;
+  }
+  header {
+    margin: 10px auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  header h1 {
+    font-size: 1.1rem;
+  }
+  main .current-weather {
+    margin: 10px auto;
+    width: 100%;
+    box-sizing: border-box;
+    height: auto;
+  }
+  main .current-weather .bar {
+    flex-direction: column-reverse;
+    margin: 0 auto 10px;
+  }
+  main .current-weather .bar .dropdown #selectFavorites {
+    display: block;
+    width: 205px;
+    margin: 5px auto;
+  }
+  main .current-weather .bar #searchInput {
+    width: 200px;
+    margin: 5px auto;
+  }
+  main .current-weather .mainWeather {
+    width: 90%;
+    padding: 10px;
+  }
+  main .current-weather .mainWeather .weatherTitle #cityName {
+    font-size: 2.3rem;
+  }
+  main .current-weather .mainWeather .weatherInfo {
+    width: 210px;
+    margin-bottom: 10px;
+    grid-template-columns: 70px 70px 70px;
+    grid-template-rows: 25px 25px;
+    place-items: end;
+    grid-template-areas: "temp minMax iconTemp" "temp minMax weatherName";
+  }
+  main .current-weather .mainWeather .weatherInfo #cityTemperature {
+    margin: 0 auto;
+    grid-area: temp;
+    padding-left: 0;
+    font-size: 2rem;
+  }
+  main .current-weather .mainWeather .weatherInfo #cityWeatherCondition {
+    font-weight: normal;
+    margin: 0 auto;
+    grid-area: weatherName;
+  }
+  main .current-weather .mainWeather .weatherInfo .maxMin {
+    margin: 0 auto;
+    grid-area: minMax;
+  }
+  main .current-weather .mainWeather .weatherInfo .maxMin h3 {
+    font-weight: normal;
+  }
+  main .current-weather .mainWeather .weatherInfo .icon {
+    height: 100%;
+    padding: 0;
+    grid-area: iconTemp;
+  }
+  main .current-weather .mainWeather .weatherInfo .icon #weatherIcon {
+    display: block;
+    margin: -5px auto 0;
+  }
+  .daily, .hourly {
+    margin: 10px auto;
+    width: 100%;
+    box-sizing: border-box;
+    height: auto;
+  }
+  .daily ul, .hourly ul {
+    display: block;
+    padding: 0;
+  }
+  .daily ul li, .hourly ul li {
+    box-sizing: border-box;
+    width: 100%;
+    height: 50px;
+    margin: 10px auto;
+  }
+  .daily .rightArrow {
+    display: block;
+  }
+  .hourly .upArrow {
+    display: none;
+  }
+  .hourly .showDate {
+    padding: 0;
+  }
+  .hourly ul li div {
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .hourly ul li div img {
+    height: 80%;
+    width: auto;
+  }
+  footer {
+    margin: 10px auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  footer c {
+    font-size: 0.7rem;
+  }
 }/*# sourceMappingURL=style.css.map */

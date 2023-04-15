@@ -81,8 +81,21 @@ const getHoursDayWeather = (lat, lon) => {
         .then((data) => { return data.json() })
         .then((data) => {
 
-            const hrlyData = (value) => {
+            const hourlyData = (value) => {
+        
+                value.style.background='#7eb1eb';
+                const number = parseInt(value.classList[1].split("position")[1]);
+                const dailyItems = window.getComputedStyle(document.querySelector(".daily"));
+                const width = parseInt(dailyItems.getPropertyValue('width'));
+                const padding = parseInt(dailyItems.getPropertyValue('padding-left'));
+                const arrowWidth = parseInt(document.querySelector(".upArrow svg").getAttribute("width"))
+                document.querySelector(".upArrow").style.left=(width/5)*(number-1/2)+padding-arrowWidth/2+"px"
 
+                const height = parseInt(dailyItems.getPropertyValue('height'));
+                const padding_top = parseInt(dailyItems.getPropertyValue('padding-top'));
+                const arrowHeight = parseInt(document.querySelector(".rightArrow svg").getAttribute("height"))
+                document.querySelector(".rightArrow").style.top=((height-padding_top*2)/5)*(number-1/2)+padding_top-arrowHeight/2+"px"
+ 
                 const dateConvert_First = value.innerText.split("day")[1];
                 data.list.forEach((value, index) => {
                     const dateTime = new Date(value.dt * 1000);
@@ -97,24 +110,22 @@ const getHoursDayWeather = (lat, lon) => {
                         const min = String(dateTime.getMinutes()).padStart(2, '0');
                         let convertTo12h = "";
 
-                        if (hours == 12) {
-                            convertTo12h = hours + ":" + min + "&nbsp;p.m.";
-                        } else if (hours == 24) {
-                            convertTo12h = 12 + ":" + min + "&nbsp;a.m.";
-                        } else if (hours < 12) {
+                        if (hours < 12) {
                             convertTo12h = hours + ":" + min + "&nbsp;a.m.";
                         } else {
                             convertTo12h = hours - 12 + ":" + min + "&nbsp;p.m.";
                         }
 
                         const m_d = month + "/" + date;
-                        const time = convertTo12h + '&nbsp;';
-                        const weather = data.list[index]["weather"][0]["main"];
-                        const icon = '<img class="weatherIcon' + index + '" alt="aa"/>';
-                        const temp = Math.round(value["main"]["temp"]) + "&deg;C";
-                        const li = '<li>' + time + '<br/>' + icon + weather + '<br/>' + temp + '</li>';
-                        document.querySelector(".hourly div").innerText = m_d;
+                        const time = '<span class="time">' + convertTo12h + '</span>';
+                        const icon = '<img class="weatherIcon' + index + '"/>';
+                        const weather = '<span>'+data.list[index]["weather"][0]["main"]+'</span>';
+                        const temp = '<span>'+Math.round(value["main"]["temp"]) + "&deg;C</span>";
+                        const li = '<li><div>' + time + icon + weather + temp + '</div></li>';
+                        
+                        document.querySelector(".hourly .showDate").innerText = m_d;
                         document.querySelector(".hourly ul").insertAdjacentHTML("beforeend", li);
+                        
                         const iconImg = value["weather"][0]["icon"];
                         const getImg = document.querySelector(".weatherIcon" + index);
                         getImg.src = `http://openweathermap.org/img/wn/${iconImg}@2x.png`;
@@ -122,21 +133,23 @@ const getHoursDayWeather = (lat, lon) => {
                 })//forEach
             }//function
 
-
             const dailyData_First = document.querySelector(".daily-items");
-            hrlyData(dailyData_First);
+            hourlyData(dailyData_First);
 
             const dailyData = document.querySelectorAll(".daily-items");
             dailyData.forEach((value) => {
+
                 value.addEventListener("click", () => {
+
+                    dailyData.forEach((value) => {value.style.background="#A8C9EF"})
 
                     const hourlyLi = document.querySelectorAll(".hourly li");
                     hourlyLi.forEach((vl) => {
                         vl.remove();
                     });
 
-                    hrlyData(value);
-
+                    hourlyData(value);
+                        
                 })//addEventListner
             })//forEach
         })
