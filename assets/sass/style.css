@@ -198,11 +198,22 @@ footer {
 .daily ul li {
   background-color: #A8C9EF;
   list-style: none;
-  padding: 10px;
+  padding: 15px 0;
   height: 10rem;
-  width: 15%;
+  width: 16%;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+.daily ul li span {
+  display: block;
+}
+.daily ul li .bold {
+  font-size: 1.3em;
+}
+.daily ul li img {
+  height: 60%;
+  margin: -15px auto;
 }
 
 .hourly {
@@ -235,7 +246,7 @@ footer {
   padding: 20px 0 0;
 }
 .hourly ul li {
-  width: 12%;
+  width: 10%;
   box-sizing: border-box;
   height: 150px;
   background-color: #A8C9EF;
@@ -360,6 +371,30 @@ footer {
   .daily .rightArrow {
     display: block;
   }
+  .daily ul li {
+    padding: 0;
+    height: auto;
+  }
+  .daily ul li span {
+    display: inline;
+    padding: 0 5px;
+  }
+  .daily ul li .bold {
+    font-size: 1.3em;
+  }
+  .daily ul li img {
+    width: 27%;
+    vertical-align: middle;
+  }
+  .daily ul li div {
+    vertical-align: middle;
+    display: inline-block;
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+  .daily ul li div span {
+    display: block;
+  }
   .hourly .upArrow {
     display: none;
   }
@@ -374,7 +409,7 @@ footer {
     align-items: center;
   }
   .hourly ul li div img {
-    height: 80%;
+    height: 90%;
     width: auto;
   }
   footer {
