@@ -229,7 +229,7 @@ footer {
   flex-direction: column;
   width: 90%;
   align-items: normal;
-  height: 12rem;
+  height: 16rem;
   text-align: center;
   position: relative;
 }
@@ -243,12 +243,12 @@ footer {
 .hourly ul {
   display: flex;
   justify-content: space-evenly;
-  padding: 20px 0 0;
+  padding: 20px 0;
 }
 .hourly ul li {
   width: 10%;
   box-sizing: border-box;
-  height: 150px;
+  height: 11rem;
   background-color: #A8C9EF;
   list-style: none;
   border-radius: 10px;
