@@ -10,6 +10,38 @@
 </head>
 
 <body>
+    <!----------------------LOADING------------------------>
+    <div class="spinningCircle" id="loader">
+        <svg
+        width="100"
+        height="100"
+        fill="none"
+        color="grey">
+            <defs>
+                <linearGradient id="half1">
+                <stop offset="0%" stop-opacity="0" stop-color="currentColor"/>
+                <stop offset="100%" stop-opacity="0.5" stop-color="currentColor"/>
+                </linearGradient>
+                <linearGradient id="half2">
+                <stop offset="0%" stop-opacity="1" stop-color="currentColor"/>
+                <stop offset="100%" stop-opacity="0.5" stop-color="currentColor"/>
+                </linearGradient>
+            </defs>
+
+            <g stroke-width="10">
+                <path stroke="url(#half1)" d="M 5 50 A 40 40 0 0 1 95 50"/>
+                <path stroke="url(#half2)" d="M 95 50 A 40 40 0 0 1 5 50"/>
+                <animateTransform
+                attributeName="transform"
+                type="rotate"
+                from="0 50 50" 
+                to="360 50 50"
+                dur="2s"
+                repeatCount="indefinite"/>
+            </g>
+        </svg>
+    </div>
+    <!----------------------LOADING------------------------>
     <header>
         <h1>Weather App</h1>
     </header>
@@ -52,63 +84,27 @@
         </div>
 
         <div class="daily">
-            <ul>
-                <li class="daily-items">
-                    <h1 class="dailyweatherTitle"></h1>
-                    <img src="" alt="" class="dailyWeatherIcon">
-                    <h2 class="dailyWeatherMaxTemp"></h2>
-                    <h2 class="dailyWeatherMinTemp"></h2>
-                </li>
-                <li class="daily-items">day14</li>
-                <li class="daily-items">day15</li>
-                <li class="daily-items">day16</li>
-                <li class="daily-items">day17</li>
-            </ul>
+            <div class="rightArrow">
+                <svg height="30" width="15">
+                    <path d="M0 0 L15 15 L0 30 Z" fill="#0c509e"></path>
+                </svg>
+            </div>
+            <ul></ul>
         </div>
         <div class="hourly">
-            <div></div>
+            <div class="upArrow">
+                <svg height="25" width="60">
+                    <path d="M30 0 L60 25 L0 25 Z" fill="#7eb1eb"></path>
+                </svg>
+            </div>
+            
+            <div class="showDate"></div>
             <ul></ul>
         </div>
     </main>
     <footer>
-        <h1>Copyright Daisuke, Diogo and Gerardo.</h1>
+        <c>Copyright&copy; 2023 Daisuke, Diogo and Gerardo.</c>
     </footer>
-    <!----------------------------------------------------->
-    <!----------------------LOADING------------------------>
-    <!----------------------------------------------------->
-    <div class="spinningCircle" id="loader">
-        <svg
-        width="100"
-        height="100"
-        fill="none"
-        color="grey">
-            <defs>
-                <linearGradient id="half1">
-                <stop offset="0%" stop-opacity="0" stop-color="currentColor"/>
-                <stop offset="100%" stop-opacity="0.5" stop-color="currentColor"/>
-                </linearGradient>
-                <linearGradient id="half2">
-                <stop offset="0%" stop-opacity="1" stop-color="currentColor"/>
-                <stop offset="100%" stop-opacity="0.5" stop-color="currentColor"/>
-                </linearGradient>
-            </defs>
-
-            <g stroke-width="10">
-                <path stroke="url(#half1)" d="M 5 50 A 40 40 0 0 1 95 50"/>
-                <path stroke="url(#half2)" d="M 95 50 A 40 40 0 0 1 5 50"/>
-                <animateTransform
-                attributeName="transform"
-                type="rotate"
-                from="0 50 50" 
-                to="360 50 50"
-                dur="2s"
-                repeatCount="indefinite"/>
-            </g>
-        </svg>
-    </div>
-    <!----------------------------------------------------->
-    <!----------------------LOADING------------------------>
-    <!----------------------------------------------------->
 </body>
 <script src="./assets/js/app.js"></script>
 <script src="https://kit.fontawesome.com/65077a475d.js" crossorigin="anonymous"></script>

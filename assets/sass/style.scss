@@ -3,6 +3,26 @@
 $backLinear: linear-gradient(315deg, #ffffff 0%, #5899e2 74%);
 $cardColor: #A8C9EF;
 
+@mixin cards {
+    background-color: #ffffff;
+    background-image: $backLinear;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 90%;
+}
+
+@mixin cardSizeResponsive {
+    margin: 10px auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 body,
 * {
     margin: 0;
@@ -19,17 +39,7 @@ body {
 }
 
 header {
-    background-color: #ffffff;
-    background-image: $backLinear;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    margin: 20px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 88%;
+    @include cards;
 
     h1 {
         font-size: 2.3rem;
@@ -41,20 +51,17 @@ header {
 
 
 main {
-    width: 90%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     .current-weather {
-        background-color: #ffffff;
-        background-image: $backLinear;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        margin: 20px 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
+        @include cards;
+
+
         height: 23rem;
+
 
         .bar {
             width: 100%;
@@ -96,9 +103,15 @@ main {
             .mainTitle {
                 display: flex;
 
-                #cityCountry {
-                    padding-top: 15%;
+                .weatherTitle{
+                    align-items: baseline;
+
+                    #cityCountry {
+                        padding-top: 15%;
+                                    }
+
                 }
+                
             }
 
             #favoriteButton {
@@ -158,7 +171,6 @@ main {
                     grid-area: minMax;
                 }
 
-
                 .icon {
                     grid-area: iconTemp;
                     padding-top: 25%;
@@ -189,112 +201,294 @@ main {
 }
 
 footer {
-    background-color: #ffffff;
-    background-image: $backLinear;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    margin: 20px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 88%;
+    @include cards;
 }
 
-
 .daily {
+    @include cards;
+    align-items: normal;
+    height: 15rem;
+    position: relative;
+
+    .rightArrow {
+        position: absolute;
+        left: 0;
+        display: none;
+        }
+
     ul {
         display: flex;
         justify-content: space-evenly;
         padding: 20px 0;
+
         li {
             background-color: $cardColor;
             list-style: none;
-            padding: 10px;
+            padding: 15px 0;
             height: 10rem;
-            width: 10rem;
+            width: 16%;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+
+            span {
+                display: block
+            }
+            .bold {
+                font-size: 1.3em;
+            }
+            img {
+                height: 60%;
+                margin: -15px auto;
+            }
         }
     }
 }
 
-.hourly{
+.hourly {
+    @include cards;
+    align-items: normal;
+    height: 16rem;
+    text-align: center;
+    position: relative;
+
+    .upArrow {
+        position: absolute;
+        top: -25px;
+    }
+
+    .showDate {
+            font-size: 1.5em;
+        }
+
     ul {
         display: flex;
         justify-content: space-evenly;
         padding: 20px 0;
+
         li {
+            width: 10%;
             box-sizing: border-box;
-            height: 200px;
+            height: 11rem;
             background-color: $cardColor;
             list-style: none;
-            padding: 10px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+            span {
+                display: block;
+            }
+
+            img {
+                width: 60%;
+            }
+
+            div {
+                position: relative;
+                top: 50%;
+                transform: translateY(-50%);
+            }
         }
     }
-} 
-
-
-.hourly ul li {
-    width: 11%;
 }
-
-.hourly {
-    background-color: aquamarine;
-    text-align: center;
-
-    div {
-        background-color: cadetblue;
-        padding-top: 10px;
-        font-size: 1.5em;
-    }
-
-    ul {
-        padding-top: 7px;
-    }
-}
-
-.daily {
-    background-color: #ffffff;
-    background-image: $backLinear;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    margin: 20px 0;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    height: 15rem;
-}
-
-.hourly {
-    background-color: #ffffff;
-    background-image: $backLinear;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    margin: 20px 0;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    height: 15rem;
-}
-
-
-
 
 .spinningCircle {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
-    background-color: rgba(255, 255, 255, 0.6);
-    // background-color: black;
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.6); 
     text-align: center;
     width: 100%;
-    height: 141%;
+    height: 100vh;
+    z-index: 100;
+    top: 0;
 
+}
+
+@media screen and (max-width:375px) {
+
+    body {
+        padding: 0 10px;
+    }
+
+    header {
+        @include cardSizeResponsive;
+
+        h1 {
+        font-size: 1.1rem;
+        }
+    }
+
+    main {
+        .current-weather {
+            @include cardSizeResponsive;
+            height: auto;
+
+            .bar {
+                flex-direction: column-reverse;
+                margin:  0 auto 10px;
+
+                    .dropdown {
+
+                        #selectFavorites {
+                        display: block;
+                        width: 205px;
+                        margin: 5px auto;
+                        }
+                    }
+                    
+                    #searchInput {
+                        width: 200px;
+                        margin: 5px auto;
+                    }
+            }
+
+            .mainWeather {
+                width: 90%;
+                padding: 10px;
+
+                .weatherTitle{
+                    
+                    #cityName {
+                        font-size: 2.3rem;
+                    }
+                }
+
+                .weatherInfo {
+                    width: 210px;
+                    margin-bottom: 10px;
+                    grid-template-columns: 70px 70px 70px;
+                    grid-template-rows: 25px 25px;
+                    place-items:end;
+                    grid-template-areas:
+                    "temp minMax iconTemp"
+                    "temp minMax weatherName"
+                    ;
+                    #cityTemperature {
+                        margin: 0 auto;
+                        grid-area:temp;
+                        padding-left:0;
+                        font-size: 2rem;
+                    }
+
+                    #cityWeatherCondition {
+                        font-weight:normal;
+                        margin: 0 auto;
+                        grid-area:weatherName;
+                    }
+
+                    .maxMin {
+                        margin: 0 auto;
+                        grid-area:minMax;
+
+                        h3 {
+                            font-weight:normal;
+                        }
+                    }
+
+                    .icon {
+                        height: 100%;
+                        padding: 0;
+                        grid-area:iconTemp;
+
+                        #weatherIcon {
+                            display: block;
+                            margin: -5px auto 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    .daily, .hourly {
+        @include cardSizeResponsive;
+        height: auto;
+        
+        ul {
+            display: block;
+            padding: 0;
+
+            li {
+            box-sizing: border-box;
+            width:100%;
+            height: 50px;
+            margin: 10px auto;
+            }
+        }
+    }
+
+    .daily {
+        .rightArrow {
+            display: block;
+            }
+            ul {
+
+                li {
+                    padding: 0;
+                    height: auto;
+                    span {
+                        display: inline;
+                        padding: 0 5px;
+                        
+                    }
+                    .bold {
+                        font-size: 1.3em;
+                        
+                    }
+                    img {
+                        width: 27%;
+                        vertical-align: middle;
+                    }
+
+                    div {
+                        vertical-align: middle;
+                        display: inline-block;
+                        width: fit-content;
+                        span {
+                            display: block;
+                        }
+                    }
+                }
+            }
+            
+    }
+
+    .hourly {
+
+        .upArrow {
+            display: none;
+            }
+
+        .showDate {
+            padding: 0;
+        }
+
+        ul{
+            li{
+                div{
+                    height: 100%;
+                    position: relative;
+                    display: flex;
+                    justify-content: space-evenly;
+                    align-items: center;
+
+                    img {
+                        height: 90%;
+                        width: auto;
+                        }
+                }
+            }
+        }
+    }
+
+    footer {
+        @include cardSizeResponsive;
+
+        c {
+        font-size: 0.7rem;
+        }
+    }
+    
 }
