@@ -34,7 +34,7 @@ const loader = document.querySelector('#loader');
 const getWeather = async (lat, lon, placeName) => {
     const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=metric`);
     const data = await response.json();
-    console.log(data);
+    
     placeName === undefined ? forecast.name = data.name : forecast.name = placeName;
     forecast.country = data.sys.country;
     forecast.temperature = Math.floor(data.main.temp);
@@ -61,7 +61,7 @@ const renderWeather = async (lat, lon, placeName) => {
 
 
 const getHoursDayWeather = (lat, lon) => {
-    console.log("getHoursDayWeather", lat, lon);
+    
     const apiKey = "7986c02714e4efe92ca1c09ef5031f3f";
     const url = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey + "&units=metric";
 
@@ -250,7 +250,7 @@ const showLoader = () => {
 
 const hideLoader = () => {
     loader.style.display = 'none';
-    console.log('hide');
+    
 }
 
 window.addEventListener('load', () => {
