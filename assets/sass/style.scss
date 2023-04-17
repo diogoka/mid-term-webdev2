@@ -248,7 +248,7 @@ footer {
 .hourly {
     @include cards;
     align-items: normal;
-    height: 12rem;
+    height: 16rem;
     text-align: center;
     position: relative;
 
@@ -264,12 +264,12 @@ footer {
     ul {
         display: flex;
         justify-content: space-evenly;
-        padding: 20px 0 0;
+        padding: 20px 0;
 
         li {
             width: 10%;
             box-sizing: border-box;
-            height: 150px;
+            height: 11rem;
             background-color: $cardColor;
             list-style: none;
             border-radius: 10px;
