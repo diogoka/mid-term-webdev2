@@ -81,7 +81,8 @@ const getHoursDayWeather = (lat, lon) => {
         .then((data) => { return data.json() })
         .then((data) => {
 
-            //////////////////////////////////////Daily Weather//////////////////////////////////////
+
+//////////////////////////////////////Daily Weather//////////////////////////////////////
 
             const obj = {};
             const dailyForecast = {};
@@ -122,7 +123,9 @@ const getHoursDayWeather = (lat, lon) => {
                     return acc + curr.main.temp;
                 }, 0);
                 let averageTemp = sumAverageTemp / obj[day].length;
-                console.log("Average Temp for the day", Math.floor(averageTemp));
+
+                //console.log("Average Temp for the day", Math.floor(averageTemp));
+
                 let loggedIcon = obj[day].reduce((acc, curr) => {
                     return acc > Number(curr.weather[0].icon.slice(0, 2))
                         ? acc
@@ -134,7 +137,8 @@ const getHoursDayWeather = (lat, lon) => {
                 }
                 let srcIcon = loggedIcon + "d";
 
-                console.log('Icon for the day', loggedIcon);
+                //console.log('Icon for the day', loggedIcon);
+
                 dailyForecast[day] = {
                     Temperature: Math.floor(averageTemp),
                     MaxTemperature: Math.floor(maxTempDay),
@@ -160,16 +164,22 @@ const getHoursDayWeather = (lat, lon) => {
                     dailyList.insertAdjacentHTML("beforeend", li);
                     const getImg = document.querySelector(".icon" + key.split(", ")[1]);
 
-                    console.log("dailyForecast[key].srcIcon", dailyForecast[key].icon);
                     getImg.src = `http://openweathermap.org/img/wn/${dailyForecast[key].icon}@2x.png`;
-
                 }
                 i += 1;
             }
 
-            /////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
 
             const hourlyData = (value) => {
+
+                document.querySelectorAll(".daily-items").forEach((value) => {
+                    value.style.background = "#A8C9EF";
+                });
+                
+                document.querySelectorAll(".hourly li").forEach((vl) => {
+                    vl.remove();
+                });
 
                 value.style.background = '#7eb1eb';
                 const number = parseInt(value.classList[1].split("position")[1]);
@@ -188,13 +198,10 @@ const getHoursDayWeather = (lat, lon) => {
                 const dateConvert_First = value.children[0].innerText.split(", ")[1];
                 data.list.forEach((value2, index) => {
                     const dateTime = new Date(value2.dt * 1000);
-                    //const month = dateTime.getMonth() + 1;
                     const date = dateTime.getDate();
 
                     if (date == dateConvert_First) {
 
-                        const month = dateTime.getMonth() + 1;
-                        const date = dateTime.getDate();
                         const hours = dateTime.getHours();
                         const min = String(dateTime.getMinutes()).padStart(2, '0');
                         let convertTo12h = "";
@@ -207,7 +214,9 @@ const getHoursDayWeather = (lat, lon) => {
 
                         const time = '<span class="time">' + convertTo12h + '</span>';
                         const icon = '<img class="weatherIcon' + index + '"/>';
-                        const weather = '<span>' + data.list[index]["weather"][0]["main"] + '</span>';
+
+                        const weather = '<span>' + value2["weather"][0]["main"] + '</span>';
+
                         const temp = '<span>' + Math.round(value2["main"]["temp"]) + "&deg;C</span>";
                         const li = '<li><div>' + time + icon + weather + temp + '</div></li>';
 
@@ -217,29 +226,20 @@ const getHoursDayWeather = (lat, lon) => {
                         const iconImg = value2["weather"][0]["icon"];
                         const getImg = document.querySelector(".weatherIcon" + index);
                         getImg.src = `http://openweathermap.org/img/wn/${iconImg}@2x.png`;
+
                     }//if(date==dateConvert)
+                    
                 })//forEach
+
             }//function
 
-            const dailyData_First = document.querySelector(".daily-items");
-            hourlyData(dailyData_First);
+            hourlyData(document.querySelector(".daily-items"));
 
-            const dailyData = document.querySelectorAll(".daily-items");
-            dailyData.forEach((value) => {
-
+            document.querySelectorAll(".daily-items").forEach((value) => {
                 value.addEventListener("click", () => {
-
-                    dailyData.forEach((value) => { value.style.background = "#A8C9EF" })
-
-                    const hourlyLi = document.querySelectorAll(".hourly li");
-                    hourlyLi.forEach((vl) => {
-                        vl.remove();
-                    });
-
                     hourlyData(value);
-
-                })//addEventListner
-            })//forEach
+                })
+            })
 
         })
         .catch((error) => {
