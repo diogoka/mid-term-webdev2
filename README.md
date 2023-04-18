@@ -14,5 +14,3 @@ Vancouver:
 Lat: 49.24
 Lon: -123.11
 
-API key:
-7986c02714e4efe92ca1c09ef5031f3f
